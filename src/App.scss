@@ -1,0 +1,116 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    .menu-header__img {
+      visibility: visible;
+    }
+
+    .menu-body__button {
+      visibility: visible;
+    }
+  }
+
+  &-header {
+    display: flex;
+    gap: 11px;
+
+    &__item {
+      position: relative;
+    }
+
+    &__name {
+      margin-bottom: 21px;
+    }
+
+    &__img {
+      position: absolute;
+      right: 0;
+      bottom: 15px;
+      visibility: hidden;
+    }
+
+    &__line {
+      background: rgba(0, 0, 0, 0.50);
+      height: 1px;
+    }
+
+    &__buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    &__button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  &-body {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    // &:hover {
+    //   background: #CACACA;
+    //   .menu-body__name {
+    //     background: #CACACA;
+    //   }
+
+    //   .menu-body__id {
+    //     background: #CACACA;
+    //   }
+    // }
+
+    &__toggle {
+      cursor: pointer;
+    }
+
+    &__button {
+      background: none;
+      border: none;
+      visibility: hidden;
+    }
+
+    &__item--name {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    &__icon {
+      width: 15px;
+      height: 15px;
+    }
+
+    &__name {
+      width: 100px;
+    }
+
+    &__id {
+      width: 100px;
+    }
+  }
+}
+
+.menu-header__item, .menu-body__item {
+  width: 100px;
+}
+
+input {
+  border: none;
+  outline: none;
+  &:focus {
+    border-bottom: 1px solid black;
+  }
+}
+
+.menu-body__item--selected {
+  background: rgba(81, 81, 81, 0.70);
+}
