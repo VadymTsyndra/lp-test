@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 
   &:hover {
     .menu-header__img {
@@ -57,17 +58,6 @@
     justify-content: space-between;
     gap: 12px;
 
-    // &:hover {
-    //   background: #CACACA;
-    //   .menu-body__name {
-    //     background: #CACACA;
-    //   }
-
-    //   .menu-body__id {
-    //     background: #CACACA;
-    //   }
-    // }
-
     &__toggle {
       cursor: pointer;
     }
@@ -76,9 +66,12 @@
       background: none;
       border: none;
       visibility: hidden;
+      z-index: 1;
+      cursor: pointer;
     }
 
     &__item--name {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 3px;
@@ -87,6 +80,29 @@
     &__icon {
       width: 15px;
       height: 15px;
+      cursor: pointer;
+    }
+
+    &__select {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      justify-items: center;
+      position: absolute;
+      top: 25px;
+      width: 200px;
+      height: 103px;
+      background: #FFFFFF;
+      box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+
+      &-image {
+        transition: 0.2s;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.6;
+        }
+      }
     }
 
     &__name {

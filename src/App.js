@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.scss';
 import { v4 as uuid } from "uuid";
 
+import kyivstar from './icons/bodyIcon.png';
 import { TableHeader } from './components/TableHeader';
 import { TableBody } from './components/TableBody';
 
 function App() {
-  const [isToggled, setToggled] = useState(false);
   const [idValue, setIdValue] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [rows, setRows] = useState([]);
+  const [isToggled, setToggled] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
 
   const handleToggle = (key) => {
     setToggled((prevToggled) => !prevToggled);
@@ -51,36 +53,47 @@ function App() {
     const uniqueKey = uuid();
 
     const newRow = {
-      toggle: isToggled,
+      toggle: false,
       product: 'XXXX-',
       id: idValue,
       name: nameValue,
       key: uniqueKey,
+      isOpened: false,
+      selectImage: kyivstar,
     }
 
-    setRows(prevState => [...prevState, newRow]);
+    setRows(prevState => {
+      const newRows = [...prevState];
+      newRows.unshift(newRow);
+      return newRows;
+    });
+
     setIdValue('');
     setNameValue('');
+    setToggled(false);
+    setIsOpened(false);
   }
 
   const deleteRow = (key) => {
-    console.log('Deleting row with key:', key);
     const filteredRows = rows.filter(row => row.key !== key);
     setRows(filteredRows);
   }
 
-
   return (
     <div className="App">
-      <table className="menu">
+      <table className="menu" >
         <TableHeader addRow={addRow} />
 
         <TableBody
           rows={rows}
+          setRows={setRows}
           handleToggle={handleToggle}
           changeIdValue={changeIdValue}
           deleteRow={deleteRow}
           changeNameValue={changeNameValue}
+          isToggled={isToggled}
+          isOpened={isOpened}
+          setIsOpened={setIsOpened}
         />
       </table>
     </div>

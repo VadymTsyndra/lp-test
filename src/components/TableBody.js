@@ -1,9 +1,8 @@
-
 import deleteButton from '../icons/delete.png';
 import toggleOn from '../icons/toggleOn.png';
 import toggleOff from '../icons/toggeOff.png';
-import kyivstar from '../icons/bodyIcon.png';
-// import lifecell from '../icons/lifecell.png';
+
+import { SelectImages } from './SelectImages';
 
 export const TableBody = ({
   rows,
@@ -11,7 +10,27 @@ export const TableBody = ({
   changeIdValue,
   changeNameValue,
   deleteRow,
+  setRows,
+  isToggled,
+  isOpened,
 }) => {
+
+  const openSelect = (key) => {
+    if (!isToggled) {
+      return;
+    }
+
+    setRows(prevState =>
+      prevState.map(row => (row.key === key ? { ...row, isOpened: !isOpened } : row))
+    );
+  }
+
+  const changeImage = (key, img) => {
+    setRows(prevState =>
+      prevState.map(row => (row.key === key ? { ...row, selectImage: img, isOpened: false } : row))
+    );
+  }
+
   return (
     <tbody>
       {rows.map((row) => (
@@ -41,7 +60,12 @@ export const TableBody = ({
           </td>
 
           <td className="menu-body__item menu-body__item--name">
-            <img src={kyivstar} className="menu-body__icon" alt="Company icon" />
+            <img
+              src={row.selectImage}
+              className="menu-body__icon"
+              alt="Company icon"
+              onClick={() => openSelect(row.key)}
+            />
             <input
               type="text"
               className="menu-body__name"
@@ -49,6 +73,14 @@ export const TableBody = ({
               onChange={(e) => changeNameValue(e, row.key)}
 
             />
+
+            {
+              row.isOpened && (
+                <div className="menu-body__select">
+                  <SelectImages changeImage={changeImage} row={row} />
+                </div>
+              )
+            }
 
             <button type="button" className="menu-body__button" onClick={() => deleteRow(row.key)}>
               <img className="menu-body__button-image" src={deleteButton} alt="Delete button" />
